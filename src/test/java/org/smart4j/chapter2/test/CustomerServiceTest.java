@@ -19,8 +19,8 @@ public class CustomerServiceTest {
 
     private CustomerService customerService;
 
-    public CustomerServiceTest(CustomerService customerService) {
-        this.customerService = customerService;
+    public CustomerServiceTest() {
+        customerService = new CustomerService();
     }
 
     @Before
