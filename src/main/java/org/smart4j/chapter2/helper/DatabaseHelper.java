@@ -37,7 +37,7 @@ public final class DatabaseHelper {
     private static final BasicDataSource DATA_SOURCE;
 
     static {
-        CONNECTION_HOLDER = new ThreadLocal<Connection>();
+        CONNECTION_HOLDER = new ThreadLocal<>();
 
         QUERY_RUNNER = new QueryRunner();
 
@@ -96,7 +96,7 @@ public final class DatabaseHelper {
         List<T> entityList;
         try {
             Connection conn = getConnection();
-            entityList = QUERY_RUNNER.query(conn,sql,new BeanListHandler<T>(entityClass),params);
+            entityList = QUERY_RUNNER.query(conn,sql,new BeanListHandler<>(entityClass),params);
         } catch (SQLException e) {
             LOGGER.error("query entity list failure",e);
             throw new RuntimeException(e);
@@ -119,7 +119,7 @@ public final class DatabaseHelper {
         T entity;
         try {
             Connection conn = getConnection();
-            entity = QUERY_RUNNER.query(conn,sql,new BeanHandler<T>(entityClass),params);
+            entity = QUERY_RUNNER.query(conn,sql,new BeanHandler<>(entityClass),params);
 
         } catch (SQLException e) {
             LOGGER.error("query entity failure",e);
@@ -154,12 +154,12 @@ public final class DatabaseHelper {
 
     /**
      * 执行更新语句（包括Insert，update，delete）
-     * @param sql
-     * @param params
-     * @return
+     * @param sql dd
+     * @param params dd
+     * @return dd
      */
-    public static int executeUpdate(String sql,Object...params){
-        int rows = 0;
+    private static int executeUpdate(String sql,Object...params){
+        int rows;
         try {
             Connection conn = getConnection();
             rows = QUERY_RUNNER.update(conn,sql,params);
@@ -226,7 +226,7 @@ public final class DatabaseHelper {
         }
         sql += setClause.substring(0,setClause.lastIndexOf(",")) + " WHERE id= ?";
 
-        List<Object> paramsList = new ArrayList<Object>();
+        List<Object> paramsList = new ArrayList<>();
         paramsList.addAll(fieldMap.values());
         paramsList.add(id);
         Object[] params = paramsList.toArray();
