@@ -68,7 +68,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.25</version>
-            <scope>test</scope>
         </dependency>
 
 
@@ -85,16 +84,13 @@
             <artifactId>commons-collections4</artifactId>
             <version>4.0</version>
         </dependency>
+        <!-- Apache Commons DbUtils -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>RELEASE</version>
+            <groupId>commons-dbutils</groupId>
+            <artifactId>commons-dbutils</artifactId>
+            <version>1.6</version>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>RELEASE</version>
-        </dependency>
+
     </dependencies>
 
 
@@ -114,6 +110,21 @@
         </plugins>
     </build>
 
+
+    <repositories>
+        <repository>
+            <id>internal</id>
+            <name>dianrong repos internal</name>
+            <url>http://nexus.dianrong.com/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>plugin</id>
+            <name>dianrong plugin</name>
+            <url>http://nexus.dianrong.com/nexus/content/groups/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
 
 </project>
