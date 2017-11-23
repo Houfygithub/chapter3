@@ -1,15 +1,11 @@
 package org.smart4j.chapter2.service;
 
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.smart4j.chapter2.helper.DatabaseHelper;
 import org.smart4j.chapter2.model.Customer;
 
-
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,8 +32,8 @@ public class CustomerService {
      *  获取客户
      */
     public Customer getCustomer(long id){
-//        TODO
-        return null;
+        String sql = "SELECT * FROM customer where id = ?";
+        return DatabaseHelper.queryEntity(Customer.class,sql,new Object[]{id});
     }
 
     /**

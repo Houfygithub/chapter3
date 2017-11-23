@@ -1,6 +1,7 @@
 package org.smart4j.chapter2.helper;
 
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -11,7 +12,6 @@ import org.smart4j.chapter2.util.CollectionUtil;
 import org.smart4j.chapter2.util.PropsUtil;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,35 +30,35 @@ public final class DatabaseHelper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class);
 
-    private static final QueryRunner QUERY_RUNNER = new QueryRunner();
+    private static final QueryRunner QUERY_RUNNER;
 
-    private static final ThreadLocal<Connection> CONNECTION_HOLDER = new ThreadLocal<Connection>();
+    private static final ThreadLocal<Connection> CONNECTION_HOLDER;
 
-    private static final String DB_DRIVER;
-    private static final String DB_URL;
-    private static final String DB_USERNAME;
-    private static final String DB_PASSWORD;
+    private static final BasicDataSource DATA_SOURCE;
 
     static {
+        CONNECTION_HOLDER = new ThreadLocal<Connection>();
+
+        QUERY_RUNNER = new QueryRunner();
+
         Properties conf = PropsUtil.loadProps("config.properties");
+        String driver = PropsUtil.getString(conf,"jdbc.driver");
+        String url = PropsUtil.getString(conf,"jdbc.url");
+        String username = PropsUtil.getString(conf,"jdbc.username");
+        String password = PropsUtil.getString(conf,"jdbc.password");
 
-        DB_DRIVER = PropsUtil.getString(conf,"jdbc.driver");
-        DB_URL = PropsUtil.getString(conf,"jdbc.url");
-        DB_USERNAME = PropsUtil.getString(conf,"jdbc.username");
-        DB_PASSWORD = PropsUtil.getString(conf,"jdbc.password");
-
-        try {
-            Class.forName(DB_DRIVER);
-        } catch (ClassNotFoundException e) {
-            LOGGER.error("load jdbc driver failure",e);
-        }
+        DATA_SOURCE = new BasicDataSource();
+        DATA_SOURCE.setDriverClassName(driver);
+        DATA_SOURCE.setUrl(url);
+        DATA_SOURCE.setUsername(username);
+        DATA_SOURCE.setPassword(password);
     }
 
     public static Connection getConnection(){
         Connection conn = CONNECTION_HOLDER.get();
         if(conn == null){
             try {
-                conn = DriverManager.getConnection(DB_URL,DB_USERNAME,DB_PASSWORD);
+                conn = DATA_SOURCE.getConnection();
             } catch (SQLException e) {
                 LOGGER.error("get connection failure",e);
                 throw new RuntimeException(e);
@@ -66,7 +66,6 @@ public final class DatabaseHelper {
                 CONNECTION_HOLDER.set(conn);
             }
         }
-
         return conn;
     }
 
