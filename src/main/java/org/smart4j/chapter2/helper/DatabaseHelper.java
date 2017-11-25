@@ -11,6 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.smart4j.chapter2.util.CollectionUtil;
 import org.smart4j.chapter2.util.PropsUtil;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -69,7 +73,7 @@ public final class DatabaseHelper {
         return conn;
     }
 
-    public static void closeConnection(){
+    /*public static void closeConnection(){
         Connection conn = CONNECTION_HOLDER.get();
         if(conn != null){
             try {
@@ -77,11 +81,9 @@ public final class DatabaseHelper {
             } catch (SQLException e) {
                 LOGGER.error("close connection failure",e);
                 throw new RuntimeException(e);
-            }finally {
-                CONNECTION_HOLDER.remove();
             }
         }
-    }
+    }*/
 
     /**
      * 查询实体列表
@@ -100,9 +102,9 @@ public final class DatabaseHelper {
         } catch (SQLException e) {
             LOGGER.error("query entity list failure",e);
             throw new RuntimeException(e);
-        } finally {
+        } /*finally {
             closeConnection();
-        }
+        }*/
         return entityList;
     }
 
@@ -124,9 +126,9 @@ public final class DatabaseHelper {
         } catch (SQLException e) {
             LOGGER.error("query entity failure",e);
             throw new RuntimeException(e);
-        }finally {
+        }/*finally {
             closeConnection();
-        }
+        }*/
         return entity;
     }
 
@@ -145,9 +147,9 @@ public final class DatabaseHelper {
         } catch (SQLException e) {
             LOGGER.error("execute query failure ",e);
             throw new RuntimeException(e);
-        }finally {
+        }/*finally {
             closeConnection();
-        }
+        }*/
 
         return result;
     }
@@ -158,7 +160,7 @@ public final class DatabaseHelper {
      * @param params dd
      * @return dd
      */
-    private static int executeUpdate(String sql,Object...params){
+    public static int executeUpdate(String sql,Object...params){
         int rows;
         try {
             Connection conn = getConnection();
@@ -166,9 +168,9 @@ public final class DatabaseHelper {
         } catch (SQLException e) {
             LOGGER.error("execute update failure",e);
             throw new RuntimeException(e);
-        }finally {
+        }/*finally {
             closeConnection();
-        }
+        }*/
         return rows;
     }
 
@@ -251,6 +253,21 @@ public final class DatabaseHelper {
 
     private static String getTableName(Class<?> entityClass){
         return entityClass.getSimpleName();
+    }
+
+    public static void executeSqlFile(String fileName){
+        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
+        BufferedReader bf = new BufferedReader(new InputStreamReader(in));
+        try {
+            String sql;
+            while ((sql = bf.readLine()) != null){
+                    executeUpdate(sql);
+            }
+        } catch (IOException e) {
+            LOGGER.error("execute sql file failure",e);
+            throw new RuntimeException(e);
+        }
+
     }
 
 }
