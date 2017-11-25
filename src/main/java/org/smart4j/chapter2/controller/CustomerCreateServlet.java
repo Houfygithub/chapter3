@@ -20,7 +20,7 @@ import java.util.Map;
 @WebServlet("/customer_create")
 public class CustomerCreateServlet extends HttpServlet{
 
-    CustomerService customerService;
+   private CustomerService customerService;
 
     @Override
     public void init() throws ServletException {
