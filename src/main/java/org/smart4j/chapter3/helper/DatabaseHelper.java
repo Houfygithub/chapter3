@@ -1,4 +1,4 @@
-package org.smart4j.chapter2.helper;
+package org.smart4j.chapter3.helper;
 
 
 import org.apache.commons.dbcp2.BasicDataSource;

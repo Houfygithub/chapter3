@@ -1,4 +1,4 @@
-package org.smart4j.chapter2.util;
+package org.smart4j.chapter3.util;
 
 
 /**

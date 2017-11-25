@@ -1,4 +1,4 @@
-package org.smart4j.chapter2.model;
+package org.smart4j.chapter3.model;
 
 /**
  * Created by Houfy on 2017/11/21.
