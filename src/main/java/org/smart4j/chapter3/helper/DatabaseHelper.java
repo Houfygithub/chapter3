@@ -8,8 +8,8 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.smart4j.chapter2.util.CollectionUtil;
-import org.smart4j.chapter2.util.PropsUtil;
+import org.smart4j.chapter3.util.CollectionUtil;
+import org.smart4j.chapter3.util.PropsUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;

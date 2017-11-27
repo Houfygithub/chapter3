@@ -1,8 +1,8 @@
 package org.smart4j.chapter3.controller;
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-import org.smart4j.chapter2.model.Customer;
-import org.smart4j.chapter2.service.CustomerService;
+import org.smart4j.chapter3.model.Customer;
+import org.smart4j.chapter3.service.CustomerService;
 import org.smart4j.chapter3.model.Customer;
 import org.smart4j.chapter3.service.CustomerService;
 
