@@ -3,10 +3,6 @@ package org.smart4j.framework;
 /**
  * 相关配置项 常量类
  *
- * @Author: houfy
- * @Description:
- * @Date: Created in $[TIME] $[DATE]
- * @Modified By:
  **/
 public interface ConfigConstant {
     String CONFIG_FILE = "smart.properties";

@@ -16,14 +16,11 @@ import java.util.jar.JarFile;
 
 /**
  * 类操作 工具类
- * @Author: houfy
- * @Description:
- * @Date: Created in $[TIME] $[DATE]
- * @Modified By:
+ *
  */
 public final class ClassUtil {
 
-    private  static final Logger LOGGER = LoggerFactory.getLogger(ClassUtil.class);
+//    private  static final Logger LOGGER = LoggerFactory.getLogger(ClassUtil.class);
 
     /**
      *  获取 类加载器
@@ -38,17 +35,23 @@ public final class ClassUtil {
     public static Class<?> loadClass(String className, boolean isInitialized){
         Class<?> cls =null;
         try {
-            Class.forName(className,isInitialized,getClassLoader());
+            cls = Class.forName(className,isInitialized,getClassLoader());
         } catch (ClassNotFoundException e) {
-            LOGGER.error("load class failure",e);
+//            LOGGER.error("load class failure",e);
             throw new RuntimeException(e);
         }
         return cls;
     }
 
+    /**
+     *  返回指定包名下的所有类的集合
+     *
+     * @param packageName
+     * @return
+     */
     public static Set<Class<?>> getClassSet(String packageName){
         Set<Class<?>> classSet = new HashSet<Class<?>>();
-
+//      获取指定包名的路径
         try {
             Enumeration<URL> urls = getClassLoader().getResources(packageName.replace(".","/"));
             while (urls.hasMoreElements()){
@@ -78,11 +81,18 @@ public final class ClassUtil {
                 }
             }
         } catch (IOException e) {
-            LOGGER.error("get class set failure",e);
+//            LOGGER.error("get class set failure",e);
             throw new RuntimeException(e);
         }
         return classSet;
     }
+
+    /**
+     * 通过包路径遍历文件，找出包名下的类名
+     * @param classSet
+     * @param packagePath
+     * @param packageName
+     */
 
     private static void addClass(Set<Class<?>> classSet,String packagePath, String packageName){
         File[] files = new File(packagePath).listFiles(new FileFilter() {
@@ -99,7 +109,7 @@ public final class ClassUtil {
                 }
                 doAddClass(classSet,className);
             }else {
-                String subPackagePath= packageName;
+                String subPackagePath= fileName;
                 if(StringUtil.isNotEmpty(packagePath)){
                     subPackagePath = packagePath + "/" + subPackagePath;
                 }
@@ -112,6 +122,11 @@ public final class ClassUtil {
         }
     }
 
+    /**
+     * 添加指定类名的类到 类集合
+     * @param classSet
+     * @param className
+     */
     private static void doAddClass(Set<Class<?>> classSet, String className){
         Class<?> cls = loadClass(className,false);
         classSet.add(cls);
