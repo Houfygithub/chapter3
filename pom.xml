@@ -210,7 +210,35 @@
 
 
 
+    <pluginRepositories>
 
+
+    <pluginRepository>
+
+    <id>plugin</id>
+
+    <name>dianrong plugin</name>
+
+    <url>http://nexus.dianrong.com/nexus/content/groups/public/</url>
+
+    </pluginRepository>
+
+    </pluginRepositories>
+
+
+    <repositories>
+
+
+    <repository>
+
+    <id>internal</id>
+
+    <name>dianrong repos internal</name>
+
+    <url>http://nexus.dianrong.com/nexus/content/groups/public/</url>
+
+    </repository>
+    </repositories>
 
 
 

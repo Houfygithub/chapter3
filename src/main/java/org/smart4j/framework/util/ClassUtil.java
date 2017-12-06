@@ -23,14 +23,14 @@ public final class ClassUtil {
 //    private  static final Logger LOGGER = LoggerFactory.getLogger(ClassUtil.class);
 
     /**
-     *  获取 类加载器
+     *  返回 当前线程上下文的类加载器
      */
     public static ClassLoader getClassLoader(){
         return Thread.currentThread().getContextClassLoader();
     }
 
     /**
-     *  加载 类
+     *  返回 与给定字符串相关联的类或接口的类对象
      */
     public static Class<?> loadClass(String className, boolean isInitialized){
         Class<?> cls =null;
@@ -44,7 +44,7 @@ public final class ClassUtil {
     }
 
     /**
-     *  返回指定包名下的所有类的集合
+     *  返回 指定包名下的所有类的集合
      *
      * @param packageName
      * @return

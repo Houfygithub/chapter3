@@ -69,6 +69,7 @@ public class DispatcherServlet extends HttpServlet{
                 String paramValue = req.getParameter(paramName);
                 paramMap.put(paramName,paramValue);
             }
+//          解析body中的参数
             String body = CodecUtil.decodeURL(StreamUtil.getString(req.getInputStream()));
             if(StringUtil.isNotEmpty(body)){
                 String[] params = StringUtil.splitString(body,"&");
@@ -119,21 +120,5 @@ public class DispatcherServlet extends HttpServlet{
                 }
             }
         }
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

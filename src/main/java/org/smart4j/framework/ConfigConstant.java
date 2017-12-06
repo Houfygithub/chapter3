@@ -3,6 +3,8 @@ package org.smart4j.framework;
 /**
  * 相关配置项 常量类
  *
+ *  配置文件 主键常量化
+ *
  **/
 public interface ConfigConstant {
     String CONFIG_FILE = "smart.properties";
@@ -15,5 +17,4 @@ public interface ConfigConstant {
     String APP_BASE_PACKAGE = "smart.framework.app.base_package";
     String APP_JSP_PATH = "smart.framework.app.jsp_path";
     String APP_ASSET_APTH = "smart.framework.app.asset_path";
-
 }
